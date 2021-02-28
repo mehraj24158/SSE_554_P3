@@ -1,7 +1,7 @@
 load("@rules_cc//cc:defs.bzl", "cc_binary")
 
 cc_binary(
-    name = "hello",
+    name = "main",
     srcs = ["main.cpp"],
-    # deps = ["//src/lib:CPPLib"],
+    deps = ["//src/lib:car-lib"],
 )
