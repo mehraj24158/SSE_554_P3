@@ -5,6 +5,7 @@
 #include "src/lib/frame.hpp"
 #include "src/lib/tire.hpp"
 #include "src/lib/operations.hpp"
+#include "doubleLL.hpp"
 using namespace std; 
 
 struct Node{
@@ -12,8 +13,7 @@ struct Node{
     struct Node* next; 
     struct Node* prev; 
 };
-
-//insert Node at the front of the list. 
+ 
 void push(struct Node** head, int new_data)
 { 
     struct Node*  newNode = new Node; 
