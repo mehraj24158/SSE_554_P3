@@ -40,3 +40,6 @@
 /bazel-template
 /bazel-*
 
+# vscode 
+.vscode
+
