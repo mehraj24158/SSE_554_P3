@@ -4,12 +4,11 @@
 using namespace std; 
 
 
-Car car; 
-int search(int arr[], int n, int car.id)
+int search(int arr[], int n, int id)
 {  
     for (int i = 0; i<n; i++)
     {
-        if(arr[i] == car.id)
+        if(arr[i] == id)
             return i; 
     }
     return -1; 

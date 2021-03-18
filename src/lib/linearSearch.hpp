@@ -2,6 +2,9 @@
 #include "car.hpp"
 using namespace std; 
 
-Car car; 
-
-int search(int arr[], int n, int car.id);
+class linear {
+    public: 
+    Car car;
+    int id = car.id;  
+    int search(int arr[], int n, int id);
+};
