@@ -4,7 +4,7 @@
 using namespace std; 
 
 
-Car 
+Car car; 
 int search(int arr[], int n, int car.id)
 {  
     for (int i = 0; i<n; i++)
@@ -14,4 +14,6 @@ int search(int arr[], int n, int car.id)
     }
     return -1; 
 }
+
+
 
