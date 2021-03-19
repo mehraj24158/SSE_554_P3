@@ -7,14 +7,11 @@
 #include "src/lib/operations.hpp"
 #include "stack"
 
-// // For example vector of 5 cars randomly generated
-// // loop through each car and a seperate vector containing each thread will install the neccessary part
-// //  
-// // Details:
-// // First create a vector with cars
-// // second create threads that point to functions which installs a particular car part
-// // Third Loop through the vector of cars and, within the loop, pass the car object
-// // Cars should come out complete and can be validated easily. 
+// Uncomment this to make sure google test fails corectly
+// TEST(fail_this_test, fail){
+//     ASSERT_EQ(0, 1);
+// };
+
 
 TEST(EmptyCar, EngineInstall){
     Car one;
@@ -22,11 +19,9 @@ TEST(EmptyCar, EngineInstall){
     std::thread engine(EngineInstaller, std::ref(P));
     engine.join();
     ASSERT_TRUE(&P->engine != NULL);
-    // ASSERT_EQ("Hello", "Hello");
 };
 
 TEST(EmptyCar, FrameInstall){
-  
     Car one;
     Car* P = &one;
     std::thread frame(FrameInstaller, std::ref(P));
@@ -97,6 +92,7 @@ class Inventory: public ::testing::Test
             for(int i = 0; i<100; i++)
             {
                 Car one;
+                one.price = rand() % 15000 + 20000;
                 Car* P = &one;
                 cars.push_back(P);
             }
@@ -130,7 +126,7 @@ TEST_F(Inventory, Recall)
         recall_list.push(car_stack.top());
         car_stack.pop();
     }
-};
+}
 
 //Ship cars off the assembly line with a shipping queue
 TEST_F(Inventory, Ship)
@@ -150,7 +146,12 @@ TEST_F(Inventory, Ship)
         ship_list.push(car_queue.top());
         car_queue.pop();
     }
-};
+}
 
-//Sort Cars by their price
-// TEST_F(Inventory, Heap)
+// Sort Cars by their price
+TEST_F(Inventory, Heap)
+{
+    std::make_heap(cars.begin(), cars.end(), greater_than_car_price());
+    std::cout << "The minimum element of heap is : ";  
+    std::cout << cars.front() << endl; 
+};

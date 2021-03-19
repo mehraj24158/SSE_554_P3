@@ -14,7 +14,14 @@ public:
     Engine engine;
 
     int id;
+    int price; 
 
     //constructors
     Car();
 };
+
+
+struct greater_than_car_price
+{
+    bool operator()(Car* a, Car* b);
+}; 

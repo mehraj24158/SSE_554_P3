@@ -1,10 +1,3 @@
-#include <iostream>
-#include <thread> 
-#include "src/lib/car.hpp"
-#include "src/lib/engine.hpp"
-#include "src/lib/frame.hpp"
-#include "src/lib/tire.hpp"
-#include "src/lib/operations.hpp"
 #include "doubleLL.hpp"
 using namespace std; 
 
@@ -84,7 +77,7 @@ void displayList(struct Node* node){
     }
 }
 
-int main(){ 
-    struct Node* head = NULL; 
-    return 0; 
-}
+// int main(){ 
+//     struct Node* head = NULL; 
+//     return 0; 
+// }

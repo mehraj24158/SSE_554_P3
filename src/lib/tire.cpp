@@ -1,5 +1,4 @@
 #include "tire.hpp"
-#include <iostream>
 using namespace std;
 
 //Constructor 
