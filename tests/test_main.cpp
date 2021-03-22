@@ -82,76 +82,105 @@ TEST(EmptyCar, VectorCompleteInstall){
 
 // Fixture, contains 100 default cars
 // use Test_F(Inventory, Test-name) to use
-class Inventory: public ::testing::Test 
-{
-    protected:
-        std::vector<Car*> cars;
+// class Inventory: public ::testing::Test 
+// {
+//     protected:
+//         std::vector<Car> cars;
 
-        void SetUp()
-        {
-            for(int i = 0; i<100; i++)
-            {
-                Car one;
-                one.price = rand() % 15000 + 20000;
-                Car* P = &one;
-                cars.push_back(P);
-            }
+//         virtual void SetUp()
+//         { 
+//             for(int i = 0; i<5; i++)
+//             {
+//                 Car c;
+//                 c.price = rand() % 15000 + 20000;
+//                 c.id = i;
+//                 cars.push_back(c);
+//             }
+//             std::thread engine(EngineInstallerVect, std::ref(cars));
+//             std::thread frame(FrameInstallerVect, std::ref(cars));
+//             std::thread tire(TireInstallerVect, std::ref(cars));
 
-            std::thread engine(EngineInstallerVect, std::ref(cars));
-            std::thread frame(FrameInstallerVect, std::ref(cars));
-            std::thread tire(TireInstallerVect, std::ref(cars));
+//             engine.join();
+//             frame.join();
+//             tire.join();
+//         }    
 
-            engine.join();
-            frame.join();
-            tire.join();
-        }    
-};
+//         virtual void TearDown()
+//         {
+//             cars.clear();
+//         }
+// };
+
+// TEST_F(Inventory, init)
+// {
+//     ASSERT_EQ(c.id, 99) <<" Expected 99 but actual is " << c.id << " ";
+
+//     for(int i = 0; i<cars.size(); i++)
+//     {
+//         ASSERT_EQ(cars[i]->id, i)<< cars[i]->id << " " ;
+//     }
+// }
 
 // Recall new cars with a stack
-TEST_F(Inventory, Recall)
-{
-    std::stack<Car*> car_stack;
+// TEST(Inventory, Recall)
+// {
+//     std::vector<Car*> cars;
+//     for(int i = 0; i<5; i++)
+//     {
+//         Car one;
+//         // one.price = rand() % 15000 + 20000;
+//         one.id = i;
+//         Car* P = &one;
+//         cars.push_back(P);
+//     }
 
-    // Manufactured car records are stored in stack
-    for(Car* i : cars)
-    {
-        car_stack.push(i);
-    }
+//     std::stack<Car*> car_stack;
 
-    std::stack<Car*> recall_list;
+//     // Manufactured car records are stored in stack
+//     for(Car* i : cars)
+//     {
+//         car_stack.push(i);
+//     }
 
-    // Recall last 20 cars
-    for(int i = 0; i<20; i++)
-    {
-        recall_list.push(car_stack.top());
-        car_stack.pop();
-    }
-}
+//     std::stack<Car*> recall_stack;
 
-//Ship cars off the assembly line with a shipping queue
-TEST_F(Inventory, Ship)
-{
-    std::stack<Car*> car_queue;
+//     // Recall last 5 cars
+//     for(int i = 0; i<cars.size(); i++)
+//     {
+//         recall_stack.push(car_stack.top());
+//         Car* c = car_stack.top();
+//         ASSERT_EQ(c->id, 5-i) << "Actual Car ID = " << c->id << ", Expected Car ID " << 5-i;
+//         car_stack.pop();
+//     }
+    
+//     // ASSERT_EQ(recall_list.top()->id, 4) << "Car ID = " << recall_list.top()->id;
+    
+// }
 
-    // Manufactured car records are stored in stack
-    for(Car* i : cars)
-    {
-        car_queue.push(i);
-    }
+// //Ship cars off the assembly line with a shipping queue
+// TEST_F(Inventory, Ship)
+// {
+//     std::stack<Car*> car_queue;
 
-    std::stack<Car*> ship_list;
+//     // Manufactured car records are stored in stack
+//     for(Car* i : cars)
+//     {
+//         car_queue.push(i);
+//     }
 
-    for(int i = 0; i<20; i++)
-    {
-        ship_list.push(car_queue.top());
-        car_queue.pop();
-    }
-}
+//     std::stack<Car*> ship_list;
+
+//     for(int i = 0; i<20; i++)
+//     {
+//         ship_list.push(car_queue.top());
+//         car_queue.pop();
+//     }
+// }
 
 // Sort Cars by their price
-TEST_F(Inventory, Heap)
-{
-    std::make_heap(cars.begin(), cars.end(), greater_than_car_price());
-    std::cout << "The minimum element of heap is : ";  
-    std::cout << cars.front() << endl; 
-};
+// TEST_F(Inventory, Heap)
+// {
+//     std::make_heap(cars.begin(), cars.end(), greater_than_car_price());
+//     std::cout << "The minimum element of heap is : ";  
+//     std::cout << cars.front() << endl; 
+// };

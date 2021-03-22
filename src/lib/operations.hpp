@@ -18,6 +18,7 @@ void FrameInstallerVect(std::vector<Car*> cars);
 //Install tires if not present in car
 void TireInstaller(Car* c);
 void TireInstallerVect(std::vector<Car*> cars);
+void TireInstallerVect2(std::vector<Car> cars);
 
 //Check if all cars are complete
 bool Validate(Car* c);

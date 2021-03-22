@@ -74,6 +74,22 @@ void TireInstallerVect(std::vector<Car*> cars)
     }
 }
 
+void TireInstallerVect2(std::vector<Car> cars)
+{
+    for(Car c:cars)
+    {
+        if(c.tire.size() < 4)
+        {
+            for(int i = c.tire.size(); i<4; i++)
+            {
+                Tire t;
+                Tire* x = &t;
+                c.tire.push_back(x);
+            }
+        }
+    }
+}
+
 
 //Check if car is are complete
 bool Validate(Car* c)

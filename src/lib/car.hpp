@@ -9,6 +9,7 @@ class Car
 {   
 public:
     //attributes
+    // vector<Tire*> tire;
     vector<Tire*> tire;
     Frame frame;
     Engine engine;
@@ -18,8 +19,8 @@ public:
 
     //constructors
     Car();
-};
 
+};
 
 struct greater_than_car_price
 {
