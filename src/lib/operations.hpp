@@ -9,16 +9,15 @@
 
 //Install Engine if not present in car
 void EngineInstaller(Car* c);
-void EngineInstallerVect(std::vector<Car*> cars);
+void EngineInstallerVect(std::vector<Car> &cars);
 
 //Install Engine if not present in car
 void FrameInstaller(Car* c);
-void FrameInstallerVect(std::vector<Car*> cars);
+void FrameInstallerVect(std::vector<Car> &cars);
 
 //Install tires if not present in car
 void TireInstaller(Car* c);
-void TireInstallerVect(std::vector<Car*> cars);
-void TireInstallerVect2(std::vector<Car> cars);
+void TireInstallerVect(std::vector<Car> &cars);
 
 //Check if all cars are complete
 bool Validate(Car* c);

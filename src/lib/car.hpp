@@ -10,7 +10,7 @@ class Car
 public:
     //attributes
     // vector<Tire*> tire;
-    vector<Tire*> tire;
+    vector<Tire> tire;
     Frame frame;
     Engine engine;
 

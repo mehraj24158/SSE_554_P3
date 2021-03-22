@@ -6,6 +6,7 @@
 #include "src/lib/tire.hpp"
 #include "src/lib/operations.hpp"
 #include "stack"
+#include "queue"
 
 // Uncomment this to make sure google test fails corectly
 // TEST(fail_this_test, fail){
@@ -54,13 +55,12 @@ TEST(EmptyCar, CompleteInstall){
 };
 
 TEST(EmptyCar, VectorCompleteInstall){
-    std::vector<Car*> cars;
+    std::vector<Car> cars;
 
     for(int i = 0; i<10; i++)
     {
         Car one;
-        Car* P = &one;
-        cars.push_back(P);
+        cars.push_back(one);
     }
     
     std::thread engine(EngineInstallerVect, std::ref(cars));
@@ -71,114 +71,97 @@ TEST(EmptyCar, VectorCompleteInstall){
     frame.join();
     tire.join();
 
-    for(Car* P: cars)
+    for(Car c: cars)
     {
-        ASSERT_TRUE(&P->engine != NULL);
-        ASSERT_TRUE(&P->frame != NULL);
-        ASSERT_TRUE(&P->tire!= NULL);
-        ASSERT_TRUE(P->tire.size()==4) << P->tire.size() << " Number of tires";
+        ASSERT_TRUE(&c.engine != NULL);
+        ASSERT_TRUE(&c.frame != NULL);
+        ASSERT_TRUE(&c.tire!= NULL);
+        ASSERT_TRUE(c.tire.size()==4) << c.tire.size() << " Number of tires";
     }
 };
 
 // Fixture, contains 100 default cars
 // use Test_F(Inventory, Test-name) to use
-// class Inventory: public ::testing::Test 
-// {
-//     protected:
-//         std::vector<Car> cars;
 
-//         virtual void SetUp()
-//         { 
-//             for(int i = 0; i<5; i++)
-//             {
-//                 Car c;
-//                 c.price = rand() % 15000 + 20000;
-//                 c.id = i;
-//                 cars.push_back(c);
-//             }
-//             std::thread engine(EngineInstallerVect, std::ref(cars));
-//             std::thread frame(FrameInstallerVect, std::ref(cars));
-//             std::thread tire(TireInstallerVect, std::ref(cars));
+class Inventory: public ::testing::Test 
+{
+    protected:
+        std::vector<Car> cars;
 
-//             engine.join();
-//             frame.join();
-//             tire.join();
-//         }    
+        virtual void SetUp()
+        { 
+            for(int i = 0; i<5; i++)
+            {
+                Car c;
+                c.price = rand() % 15000 + 20000;
+                c.id = i;
+                cars.push_back(c);
+            }
+            std::thread engine(EngineInstallerVect, std::ref(cars));
+            std::thread frame(FrameInstallerVect, std::ref(cars));
+            std::thread tire(TireInstallerVect, std::ref(cars));
 
-//         virtual void TearDown()
-//         {
-//             cars.clear();
-//         }
-// };
+            engine.join();
+            frame.join();
+            tire.join();
+        }    
 
-// TEST_F(Inventory, init)
-// {
-//     ASSERT_EQ(c.id, 99) <<" Expected 99 but actual is " << c.id << " ";
+        virtual void TearDown()
+        {
+            cars.clear();
+        }
+};
 
-//     for(int i = 0; i<cars.size(); i++)
-//     {
-//         ASSERT_EQ(cars[i]->id, i)<< cars[i]->id << " " ;
-//     }
-// }
+TEST_F(Inventory, init)
+{
+    for(int i = 0; i<cars.size(); i++)
+    {
+        ASSERT_EQ(cars[i].id, i) <<" Expected "<< i << " but actual is " << cars[0].id << " "; 
+    }
+};
 
 // Recall new cars with a stack
-// TEST(Inventory, Recall)
-// {
-//     std::vector<Car*> cars;
-//     for(int i = 0; i<5; i++)
-//     {
-//         Car one;
-//         // one.price = rand() % 15000 + 20000;
-//         one.id = i;
-//         Car* P = &one;
-//         cars.push_back(P);
-//     }
+TEST_F(Inventory, Stack_Recall)
+{
+    std::stack<Car> recall_stack;
 
-//     std::stack<Car*> car_stack;
+    // Manufactured car records are stored in stack
+    for(Car c : cars)
+    {
+        recall_stack.push(c);
+    }
 
-//     // Manufactured car records are stored in stack
-//     for(Car* i : cars)
-//     {
-//         car_stack.push(i);
-//     }
+    // Recall last 3 cars
+    for(int i = 0; i<3; i++)
+    {
+        Car c = recall_stack.top();
+        ASSERT_EQ(c.id, 4-i) << "Actual Car ID = " << c.id << ", Expected Car ID " << 5-i;
+        recall_stack.pop();
+    }
+};
 
-//     std::stack<Car*> recall_stack;
+//Ship cars off the assembly line with a shipping queue
+TEST_F(Inventory, Shipping_Queue)
+{
+    std::queue<Car> car_queue;
 
-//     // Recall last 5 cars
-//     for(int i = 0; i<cars.size(); i++)
-//     {
-//         recall_stack.push(car_stack.top());
-//         Car* c = car_stack.top();
-//         ASSERT_EQ(c->id, 5-i) << "Actual Car ID = " << c->id << ", Expected Car ID " << 5-i;
-//         car_stack.pop();
-//     }
-    
-//     // ASSERT_EQ(recall_list.top()->id, 4) << "Car ID = " << recall_list.top()->id;
-    
-// }
+    // Order information is stored in a Queue
+    for(Car c : cars)
+    {
+        car_queue.push(c);
+    }
 
-// //Ship cars off the assembly line with a shipping queue
-// TEST_F(Inventory, Ship)
-// {
-//     std::stack<Car*> car_queue;
+    std::stack<Car> delivered_list;
 
-//     // Manufactured car records are stored in stack
-//     for(Car* i : cars)
-//     {
-//         car_queue.push(i);
-//     }
-
-//     std::stack<Car*> ship_list;
-
-//     for(int i = 0; i<20; i++)
-//     {
-//         ship_list.push(car_queue.top());
-//         car_queue.pop();
-//     }
-// }
+    for(int i = 0; i<3; i++)
+    {
+        delivered_list.push(car_queue.front());
+        car_queue.pop();
+    }
+};
 
 // Sort Cars by their price
-// TEST_F(Inventory, Heap)
+// TEST_F(Inventory, Heap_Sort)
 // {
 //     std::make_heap(cars.begin(), cars.end(), greater_than_car_price());
 //     std::cout << "The minimum element of heap is : ";  

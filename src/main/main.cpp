@@ -11,23 +11,16 @@ int main()
         Car c;
         c.id = i;
         cars.push_back(c);
-        std::cout << cars[i].id << " ";
-    }
-    
-    for(Car c: cars)
-    {
-        std::cout << c.id;
     }
 
-    std::thread engine(TireInstallerVect2, std::ref(cars));
+    std::thread engine(EngineInstallerVect, std::ref(cars));
+    engine.join();
     for(Car c: cars)
     {   
-        if(&(c.engine) != NULL)
+        if(&c.engine != NULL)
         {
-            std::cout<< c.id << " Engine Present";
+            std::cout<< c.id << " Engine Present ";
         }
 
     }
-
-
 }

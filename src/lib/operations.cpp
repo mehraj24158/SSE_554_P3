@@ -1,5 +1,5 @@
 #include "operations.hpp"
-
+#include <thread>
 //Install Engine if not present in car
 void EngineInstaller(Car* c)
 {   
@@ -10,14 +10,14 @@ void EngineInstaller(Car* c)
     }
 }
 
-void EngineInstallerVect(std::vector<Car*> cars)
+void EngineInstallerVect(std::vector<Car> &cars)
 {   
-    for(Car* c:cars)
+    for(Car c: cars)
     {
-        if(&(c->engine) == NULL)
+        if(&(c.engine) == NULL)
         {
             Engine e;
-            c->engine = e;
+            c.engine = e;
         }
     }
 }
@@ -32,14 +32,14 @@ void FrameInstaller(Car* c)
     }
 }
 
-void FrameInstallerVect(std::vector<Car*> cars)
+void FrameInstallerVect(std::vector<Car> &cars)
 {
-    for(Car* c:cars)
+    for(Car c: cars)
     {
-        if(&(c->frame) == NULL)
+        if(&(c.frame) == NULL)
         {
             Frame f;
-            c->frame = f;
+            c.frame = f;
         }
     }
 }
@@ -52,43 +52,24 @@ void TireInstaller(Car* c)
         for(int i = c->tire.size(); i<4; i++)
         {
             Tire t;
-            Tire* x = &t;
-            c->tire.push_back(x);
+            //Tire* x = &t;
+            c->tire.push_back(t);
         }
     }
 }
 
-void TireInstallerVect(std::vector<Car*> cars)
+void TireInstallerVect(std::vector<Car> &cars)
 {
-    for(Car* c:cars)
+    for(int i = 0; i < cars.size(); i++)
     {
-        if(c->tire.size() < 4)
+        for(int j = cars[i].tire.size(); j<4; j++)
         {
-            for(int i = c->tire.size(); i<4; i++)
-            {
-                Tire t;
-                Tire* x = &t;
-                c->tire.push_back(x);
-            }
+            Tire t;
+            cars[i].tire.push_back(t);
         }
     }
 }
 
-void TireInstallerVect2(std::vector<Car> cars)
-{
-    for(Car c:cars)
-    {
-        if(c.tire.size() < 4)
-        {
-            for(int i = c.tire.size(); i<4; i++)
-            {
-                Tire t;
-                Tire* x = &t;
-                c.tire.push_back(x);
-            }
-        }
-    }
-}
 
 
 //Check if car is are complete
