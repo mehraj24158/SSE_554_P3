@@ -10,7 +10,7 @@ int main()
     for(int i = 0; i<5; i++)
     {
         Car c;
-        c.price = rand() % 15000 + 20000;
+        // c.price = rand() % 15000 + 20000;
         c.price = 20000*(i+1);
         c.id = i;
         cars.push_back(c);
@@ -28,15 +28,4 @@ int main()
     std::cout << cars.front().price << endl; 
     std::cout << "The maximum element of heap is : ";  
     std::cout << cars.back().price << endl; 
-
-    std::thread engine(EngineInstallerVect, std::ref(cars));
-    engine.join();
-    for(Car c: cars)
-    {   
-        if(&c.engine != NULL)
-        {
-            std::cout<< c.id << " Engine Present ";
-        }
-
-    }
 }

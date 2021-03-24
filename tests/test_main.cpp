@@ -94,7 +94,7 @@ class Inventory: public ::testing::Test
             for(int i = 0; i<5; i++)
             {
                 Car c;
-                c.price = rand() % 15000 + 20000;
+                c.price = 20000*(i+1);
                 c.id = i;
                 cars.push_back(c);
             }
@@ -154,6 +154,7 @@ TEST_F(Inventory, Shipping_Queue)
 
     std::stack<Car> delivered_list;
 
+    // Track first 3 shipped cars
     for(int i = 0; i<3; i++)
     {
         delivered_list.push(car_queue.front());
@@ -161,10 +162,11 @@ TEST_F(Inventory, Shipping_Queue)
     }
 };
 
-// // Sort Cars by their price
+// // Sort Cars by their min price
 TEST_F(Inventory, Heap_Sort)
 {
     std::make_heap(cars.begin(), cars.end(), greater_than_car_price());
-    std::cout << "The minimum element of heap is : "; 
-    std::cout << cars.front().price;
+    ASSERT_EQ(cars.front().price, 20000);
+    pop_heap(cars.begin(), cars.end(), greater_than_car_price());
+    ASSERT_EQ(cars.front().price, 40000);
 };
