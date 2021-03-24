@@ -4,9 +4,9 @@ Car::Car()
 {}
 
 
-bool greater_than_car_price::operator()(Car* a, Car* b)
+bool greater_than_car_price::operator()(Car& a, Car& b)
 {
-    if(a->price > b->price)
+    if(a.price > b.price)
     {
         return true;
     }

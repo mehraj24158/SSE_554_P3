@@ -1,12 +1,13 @@
 #include "gtest/gtest.h"
 #include <thread>
+#include <stack>
+#include <queue>
+#include <algorithm>
 #include "src/lib/car.hpp"
 #include "src/lib/engine.hpp"
 #include "src/lib/frame.hpp"
 #include "src/lib/tire.hpp"
 #include "src/lib/operations.hpp"
-#include "stack"
-#include "queue"
 
 // Uncomment this to make sure google test fails corectly
 // TEST(fail_this_test, fail){
@@ -140,7 +141,7 @@ TEST_F(Inventory, Stack_Recall)
     }
 };
 
-//Ship cars off the assembly line with a shipping queue
+// Ship cars off the assembly line with a shipping queue
 TEST_F(Inventory, Shipping_Queue)
 {
     std::queue<Car> car_queue;
@@ -160,10 +161,10 @@ TEST_F(Inventory, Shipping_Queue)
     }
 };
 
-// Sort Cars by their price
-// TEST_F(Inventory, Heap_Sort)
-// {
-//     std::make_heap(cars.begin(), cars.end(), greater_than_car_price());
-//     std::cout << "The minimum element of heap is : ";  
-//     std::cout << cars.front() << endl; 
-// };
+// // Sort Cars by their price
+TEST_F(Inventory, Heap_Sort)
+{
+    std::make_heap(cars.begin(), cars.end(), greater_than_car_price());
+    std::cout << "The minimum element of heap is : "; 
+    std::cout << cars.front().price;
+};

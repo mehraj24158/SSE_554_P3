@@ -9,7 +9,6 @@ class Car
 {   
 public:
     //attributes
-    // vector<Tire*> tire;
     vector<Tire> tire;
     Frame frame;
     Engine engine;
@@ -24,5 +23,5 @@ public:
 
 struct greater_than_car_price
 {
-    bool operator()(Car* a, Car* b);
+    bool operator()(Car& a, Car& b);
 }; 
