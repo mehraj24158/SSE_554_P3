@@ -9,7 +9,7 @@ int binarySearch(int arr[],int l, int r, int id)
 
      if(arr[x] == id)
          return x; 
-    
+
      if(arr[x]< id)
          l = x+1;
 
