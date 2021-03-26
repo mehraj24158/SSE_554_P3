@@ -1,4 +1,3 @@
-//#include <bits/stdc++.h>
 #include <iostream>
 #include "car.hpp"
 using namespace std; 
