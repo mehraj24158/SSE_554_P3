@@ -2,14 +2,17 @@
 using namespace std; 
 
 
-int linear_search(vector<Car> cars, int id)
+Car linear_search(vector<Car> cars, int id)
 {  
     for (int i = 0; i<cars.size(); i++)
     {
         if(cars[i].id == id)
-            return i; 
+            return cars[i]; 
     }
-    return -1; 
+
+    Car notFound;
+    notFound.id = 10000;
+    return notFound;
 }
 
 

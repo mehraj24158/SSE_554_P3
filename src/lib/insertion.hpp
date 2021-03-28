@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include "car.hpp"
 using namespace std;

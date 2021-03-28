@@ -1,6 +1,7 @@
+#pragma once
 #include <iostream>
 #include "car.hpp"
 using namespace std; 
 
 
-int binarySearch(vector<Car> cars, int id);
+Car binarySearch(vector<Car> cars, int l, int r, int id);

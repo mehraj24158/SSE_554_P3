@@ -3,12 +3,16 @@
 #include <stack>
 #include <queue>
 #include <algorithm>
+#include <random>
 #include "src/lib/car.hpp"
 #include "src/lib/engine.hpp"
 #include "src/lib/frame.hpp"
 #include "src/lib/tire.hpp"
 #include "src/lib/operations.hpp"
 #include "src/lib/bubble.hpp"
+#include "src/lib/insertion.hpp"
+#include "src/lib/linearSearch.hpp"
+#include "src/lib/binarySearch.hpp"
 
 // Uncomment this to make sure google test fails corectly
 // TEST(fail_this_test, fail){
@@ -89,10 +93,11 @@ class Inventory: public ::testing::Test
 {
     protected:
         std::vector<Car> cars;
+        std::vector<Car> shuffled_cars;
 
         virtual void SetUp()
         { 
-            for(int i = 0; i<5; i++)
+            for(int i = 0; i<100; i++)
             {
                 Car c;
                 c.price = 20000*(i+1);
@@ -106,6 +111,13 @@ class Inventory: public ::testing::Test
             engine.join();
             frame.join();
             tire.join();
+
+            for(Car c:cars)
+            {
+                shuffled_cars.push_back(c);
+            }
+            auto rng = std::default_random_engine {};
+            std::shuffle(shuffled_cars.begin(), shuffled_cars.end(), rng);
         }    
 
         virtual void TearDown()
@@ -137,7 +149,7 @@ TEST_F(Inventory, Stack_Recall)
     for(int i = 0; i<3; i++)
     {
         Car c = recall_stack.top();
-        ASSERT_EQ(c.id, 4-i) << "Actual Car ID = " << c.id << ", Expected Car ID " << 5-i;
+        ASSERT_EQ(c.id, cars.size()-1-i) << "Actual Car ID = " << c.id << ", Expected Car ID " << 5-i;
         recall_stack.pop();
     }
 };
@@ -166,15 +178,50 @@ TEST_F(Inventory, Shipping_Queue)
 // Sort Cars by their min price
 TEST_F(Inventory, Heap_Sort)
 {
-    std::make_heap(cars.begin(), cars.end(), greater_than_car_price());
-    ASSERT_EQ(cars.front().price, 20000);
-    pop_heap(cars.begin(), cars.end(), greater_than_car_price());
-    ASSERT_EQ(cars.front().price, 40000);
+    std::make_heap(shuffled_cars.begin(), shuffled_cars.end(), greater_than_car_price());
+    ASSERT_EQ(shuffled_cars.front().price, 20000);
+    pop_heap(shuffled_cars.begin(), shuffled_cars.end(), greater_than_car_price());
+    ASSERT_EQ(shuffled_cars.front().price, 40000);
 };
 
 // Sort Cars by their min price
-TEST_F(Inventory, Inventory_Bubble_Sort)
+TEST_F(Inventory, Bubble_Sort)
 {
-    bubbleSort(cars);
-    
+    bubbleSort(shuffled_cars);
+    ASSERT_EQ(shuffled_cars[0].id, 0) << "Expected 0 but found " << shuffled_cars[0].id;
+    ASSERT_EQ(shuffled_cars[99].id, 99)<< "Expected 99 but found " << shuffled_cars[99].id;
+    ASSERT_EQ(shuffled_cars[50].id, 50)<< "Expected 50 but found " << shuffled_cars[50].id;
 };
+
+TEST_F(Inventory, Insertion_Sort)
+{
+    insertionSort(shuffled_cars);
+    ASSERT_EQ(shuffled_cars[0].id, 0) << "Expected 0 but found " << shuffled_cars[0].id;
+    ASSERT_EQ(shuffled_cars[99].id, 99) << "Expected 99 but found " << shuffled_cars[99].id;
+    ASSERT_EQ(shuffled_cars[50].id, 50) << "Expected 50 but found " << shuffled_cars[50].id;
+};
+
+TEST_F(Inventory, Linear_Search)
+{
+    Car a = linear_search(cars, 0);
+    ASSERT_EQ(a.id, 0);
+
+    Car b = linear_search(cars, 57);
+    ASSERT_EQ(b.id, 57);
+
+    Car c = linear_search(cars, 99);
+    ASSERT_EQ(c.id, 99);
+};
+
+TEST_F(Inventory, Binary_Search)
+{
+    Car a = binarySearch(cars, cars.front().id, cars.back().id, 0);
+    ASSERT_EQ(a.id, 0);
+
+    Car b = binarySearch(cars, cars.front().id, cars.back().id, 57);
+    ASSERT_EQ(b.id, 57);
+
+    Car c = binarySearch(cars, cars.front().id, cars.back().id, 99);
+    ASSERT_EQ(c.id, 99);
+};
+

@@ -1,11 +1,14 @@
 #include <iostream>
 #include <thread>
 #include <algorithm>
+#include <random>
 #include "src/lib/car.hpp"
 #include "src/lib/operations.hpp"
 #include "src/lib/bubble.hpp"
 #include "src/lib/insertion.hpp"
 #include "src/lib/merge.hpp"
+#include "src/lib/linearSearch.hpp"
+#include "src/lib/binarySearch.hpp"
 
 int main() 
 {
@@ -26,6 +29,15 @@ int main()
     frame.join();
     tire.join();
 
+    for(Car c: cars)
+    {
+        std::cout << c.id << " ";
+    }
+    std::cout << " Initial Car Vector" << endl;
+
+    auto rng = std::default_random_engine {};
+    std::shuffle(cars.begin(), cars.end(), rng);
+
     // std::make_heap(cars.begin(), cars.end(), greater_than_car_price());
     // std::cout << "The minimum element of heap is : ";  
     // std::cout << cars.front().price << endl; 
@@ -36,30 +48,23 @@ int main()
         std::cout << c.id << " ";
     }
 
-    std::cout << endl;
+    std::cout << " Shuffled Car Vector" << endl;
 
+
+    // Car c = linear_search(cars, 1);
+    Car c = binarySearch(cars, cars.front().id, cars.back().id, 13);
+
+    std::cout << c.id << " Sorted Car Vector" << endl;
+
+    // mergeSort(cars, cars.front(), cars.back());
     // bubbleSort(cars);
-    // for(Car c: cars)
-    // {
-    //     std::cout << c.id << " ";
-    // }
-
     // insertionSort(cars);
     // for(Car c: cars)
     // {
     //     std::cout << c.id << " ";
     // }
-    std::cout << "hello world";
-    // mergeSort(cars, cars.front(), cars.back());
+    // std::cout << " Sorted Car Vector" << endl;
 
-    for(Car c: cars)
-    {
-        std::cout << c.id << " ";
-    }
-
-    std::cout << "hello world";
-
-    std::cout << cars.size() << "Car Vect Size ";
 
 
 }
