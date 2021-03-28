@@ -5,6 +5,7 @@
 #include "src/lib/operations.hpp"
 #include "src/lib/bubble.hpp"
 #include "src/lib/insertion.hpp"
+#include "src/lib/merge.hpp"
 
 int main() 
 {
@@ -43,11 +44,22 @@ int main()
     //     std::cout << c.id << " ";
     // }
 
-    insertionSort(cars);
+    // insertionSort(cars);
+    // for(Car c: cars)
+    // {
+    //     std::cout << c.id << " ";
+    // }
+    std::cout << "hello world";
+    // mergeSort(cars, cars.front(), cars.back());
+
     for(Car c: cars)
     {
         std::cout << c.id << " ";
     }
+
+    std::cout << "hello world";
+
+    std::cout << cars.size() << "Car Vect Size ";
 
 
 }

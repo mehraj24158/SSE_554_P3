@@ -2,5 +2,5 @@
 #include "car.hpp"
 using namespace std;
 
-void merge(int arr[], int l, int m, int r);
-void mergeSort(int arr[], int l, int r);
+void merge(vector<Car> &cars, Car &l, Car &m, Car &r);
+void mergeSort(vector<Car> &cars, Car &l, Car &r);

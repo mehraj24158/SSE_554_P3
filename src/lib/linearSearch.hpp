@@ -2,9 +2,6 @@
 #include "car.hpp"
 using namespace std; 
 
-class linear {
-    public: 
-    Car car;
-    int id = car.id;  
-    int search(int arr[], int n, int id);
-};
+
+int linear_search(vector<Car> cars, int id);
+

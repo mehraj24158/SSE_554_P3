@@ -2,11 +2,11 @@
 using namespace std; 
 
 
-int search(int arr[], int n, int id)
+int linear_search(vector<Car> cars, int id)
 {  
-    for (int i = 0; i<n; i++)
+    for (int i = 0; i<cars.size(); i++)
     {
-        if(arr[i] == id)
+        if(cars[i].id == id)
             return i; 
     }
     return -1; 
