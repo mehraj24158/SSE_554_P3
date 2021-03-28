@@ -172,6 +172,9 @@ TEST_F(Inventory, Shipping_Queue)
     {
         delivered_list.push(car_queue.front());
         car_queue.pop();
+        Car c = delivered_list.top();
+        ASSERT_EQ(c.id, i) << "Actual Car ID = " << c.id << ", Expected Car ID " << i;
+
     }
 };
 
