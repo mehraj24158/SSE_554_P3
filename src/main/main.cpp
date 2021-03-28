@@ -1,18 +1,20 @@
 #include <iostream>
-#include "src/lib/car.hpp"
 #include <thread>
-#include "src/lib/operations.hpp"
 #include <algorithm>
+#include "src/lib/car.hpp"
+#include "src/lib/operations.hpp"
+#include "src/lib/bubble.hpp"
+#include "src/lib/insertion.hpp"
 
 int main() 
 {
     std::vector<Car> cars;
-    for(int i = 0; i<5; i++)
+    for(int i = 0; i<10; i++)
     {
         Car c;
         // c.price = rand() % 15000 + 20000;
         c.price = 20000*(i+1);
-        c.id = i;
+        c.id = rand() % 10 + i;
         cars.push_back(c);
     }
     std::thread engine(EngineInstallerVect, std::ref(cars));
@@ -23,9 +25,29 @@ int main()
     frame.join();
     tire.join();
 
-    std::make_heap(cars.begin(), cars.end(), greater_than_car_price());
-    std::cout << "The minimum element of heap is : ";  
-    std::cout << cars.front().price << endl; 
-    std::cout << "The maximum element of heap is : ";  
-    std::cout << cars.back().price << endl; 
+    // std::make_heap(cars.begin(), cars.end(), greater_than_car_price());
+    // std::cout << "The minimum element of heap is : ";  
+    // std::cout << cars.front().price << endl; 
+    // std::cout << "The maximum element of heap is : ";  
+    // std::cout << cars.back().price << endl; 
+    for(Car c: cars)
+    {
+        std::cout << c.id << " ";
+    }
+
+    std::cout << endl;
+
+    // bubbleSort(cars);
+    // for(Car c: cars)
+    // {
+    //     std::cout << c.id << " ";
+    // }
+
+    insertionSort(cars);
+    for(Car c: cars)
+    {
+        std::cout << c.id << " ";
+    }
+
+
 }

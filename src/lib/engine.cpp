@@ -8,7 +8,7 @@ int engineSize(){
 }
 string engineStatus(string engineStatus){ 
     int estatus = 1; 
-    if(estatus = 1)
+    if(estatus == 1)
     {
          engineStatus = "Engine passed.";
     }

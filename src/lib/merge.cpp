@@ -1,41 +1,26 @@
 #include "merge.hpp"
 using namespace std;
 
-void printVector(vector<Car> &cars){
-            int i;
-            for (i = 0; i<cars.size(); i++)
-            {
-                cout <<cars[i].id<<" ";
-                cout << endl;
-            }
-    }
 
-void merge(vector<Car> &cars){
-    Car start =cars.front();
-    //Car middle = cars.size() /2;
-    Car end = cars.back();
-    
-
-
-}
-// //find middle by dividing size by 2 and then add 1 if odd
-// void merge(vector<Car> &cars){
-//      int n1 = m-l+1;
-//      int n2 = r-m;
+//find middle by dividing size by 2 and then add 1 if odd
+// void merge(vector<Car> &cars, Car &l, Car &m, Car &r)
+// {
+//     int n1 = m.id-l.id+1;
+//     int n2 = r.id-m.id;
 
 //     //create temporary arrays
-//     int L[n1], int R[n2];
-
+//     vector<Car> L;
+//     vector<Car> R;
 //     //copy data over to the temporary arrays
 
 //     for(int i = 0; i < n1; i++)
 //     {
-//         L[i] = arr[l+1];
+//         L[i] = cars[l.id + 1];
 //     }
 
 //     for(int j = 0; j < n2; j++)
 //     {
-//         R[j] = arr[m + 1 + j];
+//         R[j] = cars[m.id + 1 + j];
 //     }
 
 //     //Merge the temporary arrays back into int arr[]
@@ -44,42 +29,52 @@ void merge(vector<Car> &cars){
 //     int j = 0; //index of subarray
 //     int k = 1; //index of merged subarray
 
-//     while (i < n1 && j < n2){
+//     while (i < n1 && j < n2)
+//     {
         
-//         if(L[i] <= R[j]) {
-//             arr[k] = L[i];
+//         if(L[i].id <= R[j].id) 
+//         {
+//             cars[k] = L[i];
 //             i++;
 //         }
-//         else {
-//             arr[k] = R[j];
+//         else 
+//         {
+//             cars[k] = R[j];
 //             j++;
 //         }
 //         k++;
 //     }
 
 //     //Copy the remaining elements of L[], if there are any
-//     while(i < n1){
-//         arr[k] = L[i];
+//     while(i < n1)
+//     {
+//         cars[k] = L[i];
 //         i++;
 //         k++;
 //     }
 
 //     //copy the remaining elements of R[] if there are any
-//     while (j <n2) {
-//         arr[k] = R[j];
+//     while (j <n2) 
+//     {
+//         cars[k] = R[j];
 //         j++;
 //         k++;
 //     }
 
 // }
 
-// void mergeSort(int arr[], int l, int r){
-//     if(l>=r){
-//         return; 
+// void mergeSort(vector<Car> &cars, Car &l, Car &r)
+// {
+//     // Car l = cars.front();
+//     // Car r = cars.back();
+
+//     if(l.id>=r.id){
+//         return;//returns recursively
 //     }
 
-//     int m = l + (r-1)/2;
-//     mergeSort(arr,l,m);
-//     mergeSort(arr, m+1, r);
-//     merge(arr,l,m,r);
+//     int m =l.id + ((r.id)-1)/2;
+//     mergeSort(cars,l,cars[m]);
+
+//     mergeSort(cars,cars[m+1],r);
+//     merge(cars, l, cars[m], r);
 // }

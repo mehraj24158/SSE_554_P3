@@ -8,6 +8,7 @@
 #include "src/lib/frame.hpp"
 #include "src/lib/tire.hpp"
 #include "src/lib/operations.hpp"
+#include "src/lib/bubble.hpp"
 
 // Uncomment this to make sure google test fails corectly
 // TEST(fail_this_test, fail){
@@ -162,11 +163,18 @@ TEST_F(Inventory, Shipping_Queue)
     }
 };
 
-// // Sort Cars by their min price
+// Sort Cars by their min price
 TEST_F(Inventory, Heap_Sort)
 {
     std::make_heap(cars.begin(), cars.end(), greater_than_car_price());
     ASSERT_EQ(cars.front().price, 20000);
     pop_heap(cars.begin(), cars.end(), greater_than_car_price());
     ASSERT_EQ(cars.front().price, 40000);
+};
+
+// Sort Cars by their min price
+TEST_F(Inventory, Inventory_Bubble_Sort)
+{
+    bubbleSort(cars);
+    
 };
